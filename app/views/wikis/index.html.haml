@@ -1,0 +1,11 @@
+%h1 All Wikis
+%br
+%br
+.row
+  .col-md-8
+    = render @wikis
+  .col-md-4
+    - if policy(@wiki).create?
+      = link_to "New Wiki", new_wiki_path, class: 'btn btn-success'
+    - end
+

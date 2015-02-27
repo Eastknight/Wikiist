@@ -1,0 +1,20 @@
+.jumbotron#jumbotron-background
+  %h1 Wikiist
+  %p Welcome to Wikiist! You can use this app to create and share Markdown Wikis.
+  %p 
+    .btn.btn-info=link_to "Start for free", new_user_registration_path
+    or
+    .btn.btn-warning=link_to "Sign in", new_user_session_path
+
+.row
+  .col-md-3
+    =image_tag 'basic.png', class: 'homepage-icon'
+  .col-md-3
+    %h2 Baisc Account
+    %p With basic account, you can post unlimited public wikis, and view all the wikis posted by yourself and others.  
+  .col-md-3
+    =image_tag 'premium.png', class: 'homepage-icon'
+  .col-md-3
+    %h2 Premium Account
+    %p With premium account, you will be able to create both public and private wikis, and to share private wikis to designated users. 
+
