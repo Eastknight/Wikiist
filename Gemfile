@@ -55,6 +55,8 @@ gem "haml-rails", "~> 0.8"
 gem 'friendly_id', '~> 5.1.0'
 gem 'faker'
 gem "pundit"
+gem 'stripe'
+gem 'epic-editor-rails'
 
 
 

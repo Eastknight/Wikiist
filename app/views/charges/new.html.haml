@@ -1,0 +1,3 @@
+= form_tag charges_path do
+  %h4 Click the button!
+  %script.stripe-button{"data-amount" => "#{@stripe_btn_data[:amount]}", "data-key" => "#{@stripe_btn_data[:key]}", :src => "https://checkout.stripe.com/checkout.js", "data-description" => "#{@stripe_btn_data[:description]}" }

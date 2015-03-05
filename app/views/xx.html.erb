@@ -1,0 +1,7 @@
+ <script>
+   var editor = new EpicEditor().load();
+   editor.getElement('editor').body.innerHTML = '<%= escape_javascript(@wiki.body) %>';
+   function prep() {
+     $("#body")[0].value = (editor.getElement('editor').body.innerHTML);
+   }
+ </script>

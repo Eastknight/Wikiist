@@ -5,7 +5,11 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
   has_many :wikis
+  has_many :collaboratings
   after_initialize :init
+
+  extend FriendlyId
+  friendly_id :name, use: :slugged
 
   
   def admin?

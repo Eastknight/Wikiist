@@ -13,6 +13,8 @@
         %ul.nav.navbar-nav
           %li #{link_to "Home", root_path}
           %li #{link_to "Wikis", wikis_path}
+          - if current_user
+            %li #{link_to "My Wikis", mywikis_path(current_user)}
         .navbar-right#nav-info
           - if current_user
             Hello #{current_user.name || current_user.email}&nbsp;!&nbsp;&nbsp;#{link_to "Sign out", destroy_user_session_path, method: :delete, class: 'btn btn-danger homepage-button'}

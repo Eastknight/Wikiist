@@ -1,12 +1,19 @@
 class WikisController < ApplicationController
   def index
-    @wikis = Wiki.all
+    @wikis = Wiki.visible_to(current_user)
+    # @wikis = Wiki.all
     authorize @wikis
   end
 
   def new
     @wiki = Wiki.new
     authorize @wiki   
+  end
+
+  def mine
+    @user = current_user
+    @wikis = current_user.wikis
+    authorize @wikis
   end
 
   def create
