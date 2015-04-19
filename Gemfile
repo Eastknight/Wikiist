@@ -67,5 +67,3 @@ gem 'epic-editor-rails'
 
 
 
-
-

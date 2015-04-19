@@ -1,6 +1,11 @@
 class WikisController < ApplicationController
+
   def index
     @wikis = Wiki.visible_to(current_user)
+    if params[:q].present?  
+      query = params[:q]
+      @wikis = @wikis.where('title LIKE ?', "%#{query}%")     
+    end
     # @wikis = Wiki.all
     authorize @wikis
   end
