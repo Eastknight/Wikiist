@@ -4,7 +4,7 @@ class WikiPolicy < ApplicationPolicy
   end
 
   def show?
-    record.private
+    record.private != true || record.user == user
   end
 
   def mine?

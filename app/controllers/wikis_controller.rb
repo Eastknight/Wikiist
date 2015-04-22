@@ -6,6 +6,7 @@ class WikisController < ApplicationController
       query = params[:q]
       @wikis = @wikis.where('title LIKE ?', "%#{query}%")     
     end
+    @wikis = @wikis.paginate(page: params[:page], per_page: 10)
     # @wikis = Wiki.all
     authorize @wikis
   end
@@ -17,7 +18,7 @@ class WikisController < ApplicationController
 
   def mine
     @user = current_user
-    @wikis = current_user.wikis
+    @wikis = current_user.wikis.paginate(page: params[:page], per_page: 10)
     authorize @wikis
   end
 
@@ -35,6 +36,7 @@ class WikisController < ApplicationController
 
   def show
     @wiki = Wiki.friendly.find(params[:id])
+    authorize @wiki
   end
   
   def edit
@@ -69,7 +71,7 @@ class WikisController < ApplicationController
   private 
 
   def wiki_params
-    params.require(:wiki).permit(:title, :body)
+    params.require(:wiki).permit(:title, :body, :private)
   end
 
 end

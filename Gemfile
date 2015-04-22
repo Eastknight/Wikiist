@@ -56,7 +56,9 @@ gem 'friendly_id', '~> 5.1.0'
 gem 'faker'
 gem "pundit"
 gem 'stripe'
-gem 'epic-editor-rails'
+gem 'jquery-turbolinks'
+gem 'redcarpet'
+gem 'will_paginate'
 
 
 

@@ -14,6 +14,7 @@ class ChargesController < ApplicationController
       currency: 'usd'
     )
     if charge.save
+      current_user.upgrade!
       flash[:notice] = "Your payment is confirmed. Thank you for the business."
       redirect_to root_path
     end      
@@ -26,6 +27,10 @@ class ChargesController < ApplicationController
 
   def new
     return redirect_to new_user_session_path, notice: 'You need to sign in.' unless current_user
+    if current_user.role == "premium"
+      flash[:error] = "Your account is already premium account."
+      redirect_to root_path and return
+    end
     @stripe_btn_data = {
       key: "#{ Rails.configuration.stripe[:publishable_key] }",
       description: "Wikiist Premium Account - #{current_user.email}",
@@ -36,6 +41,6 @@ end
 
 class Amount
   def self.default
-    1_00
+    5_00
   end
 end

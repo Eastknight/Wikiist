@@ -4,6 +4,7 @@
 .row
   .col-md-8
     = render @wikis
+    = will_paginate @wikis
   .col-md-4
     - if policy(Wiki.new).create?
       = link_to "New Wiki", new_wiki_path, class: 'btn btn-success'

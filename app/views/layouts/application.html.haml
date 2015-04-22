@@ -21,7 +21,7 @@
           - else
             #{link_to "Sign in", new_user_session_path} or #{link_to "Sign up", new_user_registration_path}
         
-        = form_tag wikis_path, :method => 'get' , :class => "navbar-form navbar-left"do 
+        = form_tag wikis_path, :method => 'get' , :class => "navbar-form navbar-left" do 
           .form-group
           = text_field_tag :q, params[:q], :class => "form-control", :placeholder => "Search Wiki"
           = submit_tag "Search", :class => "btn btn-default"

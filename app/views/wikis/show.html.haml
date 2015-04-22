@@ -1,7 +1,7 @@
 %h1 #{@wiki.title}
 .row
   .col-md-8
-    %p #{@wiki.body}
+    %p= markdown_to_html @wiki.body
   .col-md-4
     - if policy(@wiki).update?
       = link_to "Edit", edit_wiki_path(@wiki), class: 'btn btn-success'

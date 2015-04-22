@@ -3,19 +3,14 @@
     = f.label :title
     = f.text_field :title, class: 'form-control', placeholder: "Enter wiki title"
   .form-group
-    = f.label :Description
+    = f.label :description
     = f.hidden_field :body, id: "body"
+  #epiceditor
+  %br
 
-  - if current_user.role == 'admin' || current_user.role == 'premium'
-    .form-group
-      = f.label :private, class: 'checkbox' do
-        #{f.check_box :private} Private wiki
+  - if can_mark_private?(wiki, current_user, wiki_update)
+    .form-group.form-inline
+      = f.label :private
+      = f.check_box :private, class: 'checkbox inline'
   .form-group
     = f.submit "Save", class: 'btn btn-success'
-
-:javascript
-  var editor = new EpicEditor().load();
-  editor.getElement('editor').body.innerHTML = '#{escape_javascript(wiki.body)}';
-  function prep() {
-    $("#body")[0].value = (editor.getElement('editor').body.innerHTML);
-  }

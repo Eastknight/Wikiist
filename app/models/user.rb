@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
 
   has_many :wikis
   has_many :collaboratings
-  after_initialize :init
+  before_create :init
 
   extend FriendlyId
   friendly_id :name, use: :slugged
@@ -22,6 +22,11 @@ class User < ActiveRecord::Base
 
   def premium?
     role == 'premium'
+  end
+
+  def upgrade!
+    self.role = 'premium'
+    self.save
   end
 
   private 
