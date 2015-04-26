@@ -9,15 +9,17 @@ class Wiki < ActiveRecord::Base
   
 
   scope :visible_to, -> (user) {
-    collabrated_wikis = Wiki.joins(:collaboratings).where(collaboratings: { user_id: user.id })
-    public_wikis = Wiki.where("private = 'f'")
-    owned_wikis = Wiki.where(user_id: user.id)
     if !user
       where(private: false)
-    elsif user.role == "admin"
-      all
     else
-      from("(#{collabrated_wikis.to_sql} UNION #{public_wikis.to_sql} UNION #{owned_wikis.to_sql}) AS wikis")
+      collabrated_wikis = Wiki.joins(:collaboratings).where(collaboratings: { user_id: user.id })
+      public_wikis = Wiki.where("private = 'f'")
+      owned_wikis = Wiki.where(user_id: user.id)
+      if user.role == "admin"
+        all
+      else
+        from("(#{collabrated_wikis.to_sql} UNION #{public_wikis.to_sql} UNION #{owned_wikis.to_sql}) AS wikis")
+      end
     end
   }
 
