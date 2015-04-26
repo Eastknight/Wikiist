@@ -3,3 +3,13 @@
 .row
   .col-md-8
     = render partial: "form", locals: {wiki: @wiki, wiki_update: true}
+  .col-md-4
+    - if @wiki.private && (@wiki.user == current_user || current_user.role == "admin")
+      %h3 Collaborators:
+      %table.table
+        = render partial: "collaborator", collection: @collaborators
+
+      = form_tag wiki_collaboratings_path(@wiki), method: 'post', class: "form-inline" do
+        .form-group
+          = text_field_tag :email, params[:email], class: "form-control", placeholder: "Enter email"
+          = submit_tag "Add Collaborator", class: "btn btn-default"

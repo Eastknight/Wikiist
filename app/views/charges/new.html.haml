@@ -1,3 +1,5 @@
 = form_tag charges_path do
+  %h3 TODO: Design this view
   %h4 Upgrading account will charge you 5 dollars. Click the button to pay!
+  %p For testing porpose, use 4242-4242-4242-4242 as card number
   %script.stripe-button{"data-amount" => "#{@stripe_btn_data[:amount]}", "data-key" => "#{@stripe_btn_data[:key]}", :src => "https://checkout.stripe.com/checkout.js", "data-description" => "#{@stripe_btn_data[:description]}" }

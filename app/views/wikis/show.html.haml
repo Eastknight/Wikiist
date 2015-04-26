@@ -2,10 +2,17 @@
 .row
   .col-md-8
     %p= markdown_to_html @wiki.body
-  .col-md-4
     - if policy(@wiki).update?
       = link_to "Edit", edit_wiki_path(@wiki), class: 'btn btn-success'
 
     - if policy(@wiki).destroy?
       = link_to "Delete", @wiki, method: :delete, class: 'btn btn-danger'
+    
+  .col-md-4
+    - if @wiki.private && (@wiki.user == current_user || current_user.role == "admin")
+      %h3 Collaborators:
+      %ul
+        - @collaborators.each do |c|
+          %li= c.email
+
 

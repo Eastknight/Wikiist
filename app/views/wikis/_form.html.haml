@@ -8,7 +8,7 @@
   #epiceditor
   %br
 
-  - if can_mark_private?(wiki, current_user, wiki_update)
+  - if current_user.role == 'admin' || can_mark_private?(wiki, current_user, wiki_update)
     .form-group.form-inline
       = f.label :private
       = f.check_box :private, class: 'checkbox inline'

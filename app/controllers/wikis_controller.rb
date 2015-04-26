@@ -7,8 +7,6 @@ class WikisController < ApplicationController
       @wikis = @wikis.where('title LIKE ?', "%#{query}%")     
     end
     @wikis = @wikis.paginate(page: params[:page], per_page: 10)
-    # @wikis = Wiki.all
-    authorize @wikis
   end
 
   def new
@@ -37,11 +35,13 @@ class WikisController < ApplicationController
   def show
     @wiki = Wiki.friendly.find(params[:id])
     authorize @wiki
+    @collaborators = User.joins(:collaboratings).where("collaboratings.wiki_id = ?", @wiki.id)
   end
   
   def edit
     @wiki = Wiki.friendly.find(params[:id])
     authorize @wiki
+    @collaborators = User.joins(:collaboratings).where("collaboratings.wiki_id = ?", @wiki.id)
   end
 
   def update
@@ -61,7 +61,7 @@ class WikisController < ApplicationController
     authorize @wiki
     if @wiki.destroy
       flash[:notice] = "Wiki was deleted."
-      render :index
+      redirect_to wikis_path
     else
       flash[:error] = "There was an error. Please try again."
       render :show

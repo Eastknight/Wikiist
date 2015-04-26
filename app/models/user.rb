@@ -1,11 +1,14 @@
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
+  # :confirmable, :lockable, :timeoutable and :omniauthable  
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
+  validate :name, presence: true
+
   has_many :wikis
   has_many :collaboratings
+  has_many :collaborating_wikis, through: :collaboratings, :source => :wiki
   before_create :init
 
   extend FriendlyId
